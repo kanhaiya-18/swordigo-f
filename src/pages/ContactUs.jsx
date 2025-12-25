@@ -29,6 +29,12 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
       icon: "▶️",
       description: "Watch our videos and product demonstrations",
     },
+    {
+      name: "Email",
+      url: "mailto:sisodiyanishant204@gmail.com",
+      icon: "📧",
+      description: "Email us for any questions or support",
+    },
   ];
 
   const features = [
@@ -39,13 +45,13 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
     },
     {
       icon: GlobeAltIcon,
-      title: "Worldwide Shipping",
-      description: "Tracked delivery to over 80+ countries.",
+      title: "Pan-India Delivery",
+      description: "Reliable delivery across India.",
     },
     {
       icon: CreditCardIcon,
       title: "Secure Payments",
-      description: "Encrypted checkout with major providers.",
+      description: "Encrypted checkout with trusted providers.",
     },
     {
       icon: ShieldCheckIcon,
