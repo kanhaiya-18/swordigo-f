@@ -18,6 +18,7 @@ const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -75,6 +76,7 @@ const AdminDashboard = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);
 
     try {
       const payload = {
@@ -109,6 +111,8 @@ const AdminDashboard = () => {
     } catch (err) {
       // console.error("Error creating product:", err);
       setError(err.response?.data?.message || err.message || "Create failed");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -137,6 +141,7 @@ const AdminDashboard = () => {
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);
 
     try {
       const payload = {
@@ -176,6 +181,8 @@ const AdminDashboard = () => {
     } catch (err) {
       // console.error("Error updating product:", err);
       setError(err.response?.data?.message || err.message || "Update failed");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -216,6 +223,12 @@ const AdminDashboard = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           <div className="flex gap-3">
+            <button
+              onClick={() => navigate("/admin/orders")}
+              className="flex items-center gap-2 bg-cyan-500 text-black px-4 py-2 rounded-lg font-medium hover:bg-cyan-400 transition-colors"
+            >
+              📦 Orders
+            </button>
             <button
               onClick={() => setShowAddModal(true)}
               className="flex items-center gap-2 bg-sky-500 text-black px-4 py-2 rounded-lg"
@@ -349,6 +362,7 @@ const AdminDashboard = () => {
         formData={formData}
         setFormData={setFormData}
         error={error}
+        isSubmitting={isSubmitting}
       />
 
       <ProductModal
@@ -364,6 +378,7 @@ const AdminDashboard = () => {
         formData={formData}
         setFormData={setFormData}
         error={error}
+        isSubmitting={isSubmitting}
       />
     </div>
   );

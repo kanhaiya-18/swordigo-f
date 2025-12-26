@@ -8,6 +8,7 @@ const ProductModal = ({
   formData,
   setFormData,
   error,
+  isSubmitting,
 }) => {
   if (!isOpen) return null;
 
@@ -292,14 +293,19 @@ const ProductModal = ({
           <div className="flex gap-3 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-sky-500 text-slate-950 py-2 rounded-lg font-medium"
+              className="flex-1 bg-sky-500 text-slate-950 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-sky-400 transition-colors"
+              disabled={isSubmitting}
             >
-              {title.includes("Add") ? "Create" : "Update"}
+              {isSubmitting 
+                ? (title.includes("Add") ? "Creating..." : "Updating...")
+                : (title.includes("Add") ? "Create" : "Update")
+              }
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-slate-700 text-white py-2 rounded-lg"
+              className="flex-1 bg-slate-700 text-white py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isSubmitting}
             >
               Cancel
             </button>

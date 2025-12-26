@@ -14,6 +14,9 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
   const [showOrderReview, setShowOrderReview] = useState(false);
   const [creatingOrder, setCreatingOrder] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const [addingToCartId, setAddingToCartId] = useState(null);
+  const [reducingQuantityId, setReducingQuantityId] = useState(null);
+  const [deletingItemId, setDeletingItemId] = useState(null);
   const [savedAddresses, setSavedAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [address, setAddress] = useState({
@@ -98,6 +101,7 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleAddToCart = async (productId) => {
     try {
+      setAddingToCartId(productId);
       const res = await api.post(`/cart/add/${productId}`, { quantity: 1 });
       if (res.data.success) {
         fetchCart();
@@ -105,11 +109,14 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
     } catch (err) {
       console.error("Error adding to cart:", err);
       setError(err.response?.data?.message || "Failed to add item");
+    } finally {
+      setAddingToCartId(null);
     }
   };
 
   const handleReduceQuantity = async (productId) => {
     try {
+      setReducingQuantityId(productId);
       const res = await api.patch(`/cart/reduce/${productId}`);
       if (res.data.success) {
         fetchCart();
@@ -117,11 +124,14 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
     } catch (err) {
       console.error("Error reducing quantity:", err);
       setError(err.response?.data?.message || "Failed to update quantity");
+    } finally {
+      setReducingQuantityId(null);
     }
   };
 
   const handleDeleteItem = async (productId) => {
     try {
+      setDeletingItemId(productId);
       const res = await api.delete(`/cart/delete/${productId}`);
       if (res.data.success) {
         fetchCart();
@@ -129,6 +139,8 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
     } catch (err) {
       console.error("Error deleting item:", err);
       setError(err.response?.data?.message || "Failed to delete item");
+    } finally {
+      setDeletingItemId(null);
     }
   };
 
@@ -362,10 +374,14 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
                                 e.stopPropagation();
                                 handleReduceQuantity(item.product._id);
                               }}
-                              className="p-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 transition-colors"
-                              disabled={item.quantity <= 1}
+                              className="p-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              disabled={item.quantity <= 1 || reducingQuantityId === item.product._id}
                             >
-                              <MinusIcon className="h-4 w-4 text-slate-300" />
+                              {reducingQuantityId === item.product._id ? (
+                                <span className="h-4 w-4 text-slate-300 inline-block animate-spin">⏳</span>
+                              ) : (
+                                <MinusIcon className="h-4 w-4 text-slate-300" />
+                              )}
                             </button>
                             <span className="text-slate-200 font-medium min-w-[2rem] text-center">
                               {item.quantity}
@@ -375,9 +391,14 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
                                 e.stopPropagation();
                                 handleAddToCart(item.product._id);
                               }}
-                              className="p-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 transition-colors"
+                              className="p-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              disabled={addingToCartId === item.product._id}
                             >
-                              <PlusIcon className="h-4 w-4 text-slate-300" />
+                              {addingToCartId === item.product._id ? (
+                                <span className="text-xs text-slate-300">Adding...</span>
+                              ) : (
+                                <PlusIcon className="h-4 w-4 text-slate-300" />
+                              )}
                             </button>
                           </div>
 
@@ -390,9 +411,14 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
                                 e.stopPropagation();
                                 handleDeleteItem(item.product._id);
                               }}
-                              className="p-2 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors"
+                              className="p-2 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              disabled={deletingItemId === item.product._id}
                             >
-                              <TrashIcon className="h-5 w-5" />
+                              {deletingItemId === item.product._id ? (
+                                <span className="animate-spin">🗑️</span>
+                              ) : (
+                                <TrashIcon className="h-5 w-5" />
+                              )}
                             </button>
                           </div>
                         </div>

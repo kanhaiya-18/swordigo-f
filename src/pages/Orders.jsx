@@ -5,6 +5,30 @@ import Footer from "../components/Footer";
 import api from "../utils/api";
 import { motion } from "framer-motion";
 
+const getStatusColor = (status) => {
+  const statusColors = {
+    pending: "bg-yellow-500/20 text-yellow-300 border-yellow-500/50",
+    confirmed: "bg-blue-500/20 text-blue-300 border-blue-500/50",
+    shipping: "bg-purple-500/20 text-purple-300 border-purple-500/50",
+    "out for delivery": "bg-orange-500/20 text-orange-300 border-orange-500/50",
+    delivered: "bg-green-500/20 text-green-300 border-green-500/50",
+    cancelled: "bg-red-500/20 text-red-300 border-red-500/50"
+  };
+  return statusColors[status] || "bg-slate-500/20 text-slate-300 border-slate-500/50";
+};
+
+const getStatusEmoji = (status) => {
+  const statusEmojis = {
+    pending: "⏳",
+    confirmed: "✓",
+    shipping: "📦",
+    "out for delivery": "🚚",
+    delivered: "✅",
+    cancelled: "❌"
+  };
+  return statusEmojis[status] || "📌";
+};
+
 const Orders = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -118,34 +142,62 @@ const Orders = ({ isLoggedIn, setIsLoggedIn }) => {
                   className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 cursor-pointer hover:border-sky-400/50 transition-colors"
                   onClick={() => navigate(`/order/${order._id}`)}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-slate-50">
-                          Order #{order._id.slice(-8).toUpperCase()}
-                        </h3>
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-sky-500/20 text-sky-300 border border-sky-500/50">
-                          Placed
-                        </span>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-lg font-semibold text-slate-50">
+                            Order #{order._id.toUpperCase()}
+                          </h3>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.orderStatus)}`}>
+                            {getStatusEmoji(order.orderStatus)} {order.orderStatus?.charAt(0).toUpperCase() + order.orderStatus?.slice(1)}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-400 mb-2">
+                          {new Date(order.orderDate).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                          })}
+                        </p>
+                        <p className="text-sm text-slate-300">
+                          {order.orderDetails?.length || 0} {order.orderDetails?.length === 1 ? "item" : "items"}
+                        </p>
                       </div>
-                      <p className="text-sm text-slate-400 mb-2">
-                        {new Date(order.orderDate).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit"
-                        })}
-                      </p>
-                      <p className="text-sm text-slate-300">
-                        {order.orderDetails?.length || 0} {order.orderDetails?.length === 1 ? "item" : "items"}
-                      </p>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+                          ₹{order.totalAmount?.toFixed(2) || "0.00"}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1">Total Amount</p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-                        ₹{order.totalAmount?.toFixed(2) || "0.00"}
-                      </p>
-                      <p className="text-xs text-slate-400 mt-1">Total Amount</p>
+                    
+                    {/* Order Status Timeline */}
+                    <div className="mt-2 pt-4 border-t border-slate-700">
+                      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                        {["pending", "confirmed", "shipping", "out for delivery", "delivered"].map((status, index) => {
+                          const statusOrder = ["pending", "confirmed", "shipping", "out for delivery", "delivered"];
+                          const currentStatusIndex = statusOrder.indexOf(order.orderStatus);
+                          const isCompleted = index <= currentStatusIndex;
+                          const isCurrent = status === order.orderStatus;
+                          
+                          return (
+                            <div key={status} className="flex flex-col items-center">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                                isCompleted ? "bg-sky-500 text-slate-950" : "bg-slate-700 text-slate-400"
+                              } ${isCurrent ? "ring-2 ring-sky-400 scale-110" : ""}`}>
+                                {isCurrent ? "●" : "✓"}
+                              </div>
+                              <p className="text-xs text-slate-400 mt-1 text-center capitalize hidden sm:block">
+                                {/* {status === "out for delivery" ? "out for delivery" : status.slice(0, 3)} */}
+                                {status}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 </motion.div>

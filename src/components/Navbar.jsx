@@ -153,12 +153,9 @@ const Navbar = ({isLoggedIn, setIsLoggedIn}) => {
               <>
                 <Link
                   to="/cart"
-                  className="group inline-flex items-center gap-2 rounded-full border border-slate-500/70 bg-slate-100/95 px-4 py-2 text-xs sm:text-sm font-medium text-slate-900 shadow-sm transition-all duration-300 hover:bg-white hover:-translate-y-0.5 hover:shadow-md"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-500/70 bg-slate-100/95 px-4 py-2 text-xs sm:text-sm font-medium text-slate-900 shadow-sm transition-all duration-300 hover:bg-white hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <span>View Cart</span>
-                  <span className="h-5 w-5 rounded-full bg-slate-900/80 flex items-center justify-center text-[10px] text-slate-100 group-hover:bg-slate-800">
-                    {cartCount}
-                  </span>
                 </Link>
                 <Link
                   to="/account"

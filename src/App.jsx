@@ -13,6 +13,7 @@ import OrderDetail from "./pages/OrderDetail";
 import MyAccount from "./pages/MyAccount";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminOrders from "./pages/AdminOrders";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -128,6 +129,7 @@ const App = () => {
         />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
         <Route
           path="/terms"
           element={
