@@ -188,7 +188,8 @@ const Orders = ({ isLoggedIn, setIsLoggedIn }) => {
                               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                                 isCompleted ? "bg-sky-500 text-slate-950" : "bg-slate-700 text-slate-400"
                               } ${isCurrent ? "ring-2 ring-sky-400 scale-110" : ""}`}>
-                                {isCurrent ? "●" : "✓"}
+                                {/* {isCurrent ? "●" : "✓"} */}
+                                ✓
                               </div>
                               <p className="text-xs text-slate-400 mt-1 text-center capitalize hidden sm:block">
                                 {/* {status === "out for delivery" ? "out for delivery" : status.slice(0, 3)} */}
