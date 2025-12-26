@@ -62,12 +62,12 @@ const FeaturedProducts = ({ isLoggedIn }) => {
           <h2 className="text-2xl sm:text-3xl font-semibold text-slate-50">
             Featured{" "}
             <span className="bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-              Katanas
+              Perfumes
             </span>
           </h2>
           <p className="mt-2 text-sm text-slate-400/90 max-w-md">
-            A curated selection of our most coveted blades, crafted for those
-            who demand more than a display piece.
+            A curated selection of our signature fragrances — crafted for
+            elegance, longevity, and refined presence.
           </p>
         </div>
         <a
@@ -207,17 +207,36 @@ const FeaturedProducts = ({ isLoggedIn }) => {
                     </p>
                   )}
                 </div>
-                <span className="text-sm font-semibold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-                  ₹{product.price}
-                </span>
+                {/* Price display: show discounted price prominently with original price struck-through when applicable */}
+                <div className="text-right">
+                  {(() => {
+                    const mainPrice = product.discountedPrice ?? product.price;
+                    const originalPrice = product.discountedPrice
+                      ? (product.basePrice ?? product.price)
+                      : null;
+                    return (
+                      <div>
+                        <div className="text-sm font-semibold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+                          ₹{mainPrice}
+                        </div>
+                        {originalPrice && originalPrice > mainPrice && (
+                          <div className="text-xs text-slate-400 line-through mt-0.5">₹{originalPrice}</div>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </div>
               </div>
 
               <div className="flex items-center justify-between text-[11px] text-slate-400/90">
-                {product.totalLength > 0 && (
-                  <span>Length: {product.totalLength}cm</span>
-                )}
-                {product.bladeLength > 0 && (
-                  <span>Blade: {product.bladeLength}cm</span>
+                {(product.volume || product.size || product.category) && (
+                  <span>
+                    {product.volume
+                      ? `${product.volume}`
+                      : product.size
+                      ? `${product.size}`
+                      : product.category}
+                  </span>
                 )}
               </div>
 

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
@@ -47,6 +49,24 @@ const App = () => {
           path="/signup"
           element={
             <Signup
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/forgotPassword"
+          element={
+            <ForgotPassword
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/resetPassword/:token"
+          element={
+            <ResetPassword
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
             />

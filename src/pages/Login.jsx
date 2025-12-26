@@ -10,15 +10,18 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     // Basic validation
     if (!email || !password) {
       setError("Please fill in all fields");
+      setIsLoading(false);
       return;
     }
     //post  login (email and password)
@@ -30,14 +33,17 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
         const token = response.data.token;
         localStorage.setItem("token", token);
         setIsLoggedIn(true);
+        setIsLoading(false);
         navigate("/");
       } else {
         setError("Login failed. Please try again.");
+        setIsLoading(false);
       }
 
     }
     catch (err) {
       console.error("Login error:", err);
+      setIsLoading(false);
 
       // Show more useful error
       if (err.response) {
@@ -56,7 +62,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
         // Something else (config, network, etc.)
         setError("Something went wrong. Please try again.");
       }
-    };
+    };;
   }
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -101,7 +107,8 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="you@example.com"
                   required
                 />
@@ -121,14 +128,16 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                    disabled={isLoading}
+                    className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="••••••••"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+                    disabled={isLoading}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? (
@@ -142,15 +151,16 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
 
               {/* Remember me & Forgot password */}
               <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 text-slate-400 cursor-pointer">
+                <label className="flex items-center gap-2 text-slate-400 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                   <input
                     type="checkbox"
-                    className="w-4 h-4 rounded border-slate-700 bg-slate-950/50 text-sky-500 focus:ring-sky-500"
+                    disabled={isLoading}
+                    className="w-4 h-4 rounded border-slate-700 bg-slate-950/50 text-sky-500 focus:ring-sky-500 disabled:opacity-50"
                   />
                   <span>Remember me</span>
                 </label>
                 <a
-                  href="#forgot"
+                  href="/forgotPassword"
                   className="text-sky-400 hover:text-sky-300 transition-colors"
                 >
                   Forgot password?
@@ -160,9 +170,10 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
               {/* Submit button */}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-sky-500 px-4 py-3 text-sm font-medium text-slate-950 shadow-sm transition-all duration-200 hover:bg-sky-400 hover:shadow-md hover:-translate-y-0.5"
+                disabled={isLoading}
+                className="w-full rounded-lg bg-sky-500 px-4 py-3 text-sm font-medium text-slate-950 shadow-sm transition-all duration-200 hover:bg-sky-400 hover:shadow-md hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-sky-500"
               >
-                Sign In
+                {isLoading ? "Logging in..." : "Sign In"}
               </button>
             </form>
 

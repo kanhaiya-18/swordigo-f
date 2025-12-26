@@ -15,6 +15,7 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,20 +28,24 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
 const handleSubmit = async(e) => {
   e.preventDefault();
   setError("");
+  setIsLoading(true);
 
   // Basic validation
   if (!formData.name || !formData.email || !formData.password) {
     setError("Please fill in all required fields");
+    setIsLoading(false);
     return;
   }
 
   if (formData.password !== formData.confirmPassword) {
     setError("Passwords do not match");
+    setIsLoading(false);
     return;
   }
 
   if (formData.password.length < 6) {
     setError("Password must be at least 6 characters");
+    setIsLoading(false);
     return;
   }
   try {
@@ -52,10 +57,12 @@ const handleSubmit = async(e) => {
     const token = response.data.token;
     localStorage.setItem("token", token);
     setIsLoggedIn(true);
+    setIsLoading(false);
     navigate("/")
   }
   catch (err) {
     console.log(err);
+    setIsLoading(false);
     if(err.response)
     {
         setError(err.response.data.message || "something went wrong");
@@ -88,7 +95,7 @@ return (
               Create Account
             </h1>
             <p className="text-sm text-slate-400">
-              Join Swordigo and start your collection
+              Join VelourFits — discover signature scents
             </p>
           </div>
 
@@ -115,7 +122,8 @@ return (
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                disabled={isLoading}
+                className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="John Doe"
                 required
               />
@@ -135,7 +143,8 @@ return (
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                disabled={isLoading}
+                className="w-full px-4 py-3 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="you@example.com"
                 required
               />
@@ -156,14 +165,16 @@ return (
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+                  disabled={isLoading}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -190,14 +201,16 @@ return (
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 pr-12 rounded-lg border border-slate-700 bg-slate-950/50 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+                  disabled={isLoading}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                 >
                   {showConfirmPassword ? (
@@ -243,9 +256,10 @@ return (
             {/* Submit button */}
             <button
               type="submit"
-              className="w-full rounded-lg bg-sky-500 px-4 py-3 text-sm font-medium text-slate-950 shadow-sm transition-all duration-200 hover:bg-sky-400 hover:shadow-md hover:-translate-y-0.5"
+              disabled={isLoading}
+              className="w-full rounded-lg bg-sky-500 px-4 py-3 text-sm font-medium text-slate-950 shadow-sm transition-all duration-200 hover:bg-sky-400 hover:shadow-md hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-sky-500"
             >
-              Create Account
+              {isLoading ? "Signing up..." : "Create Account"}
             </button>
           </form>
 

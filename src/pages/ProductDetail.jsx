@@ -239,9 +239,22 @@ const ProductDetail = ({ isLoggedIn, setIsLoggedIn }) => {
 
               {/* Price */}
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-                  ₹{product.price}
-                </span>
+                {(() => {
+                  const mainPrice = product.discountedPrice ?? product.price;
+                  const originalPrice = product.discountedPrice
+                    ? (product.basePrice ?? product.price)
+                    : null;
+                  return (
+                    <div>
+                      <span className="text-4xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+                        ₹{mainPrice}
+                      </span>
+                      {originalPrice && originalPrice > mainPrice && (
+                        <div className="text-sm text-slate-400 line-through mt-1">₹{originalPrice}</div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Description */}
@@ -281,23 +294,44 @@ const ProductDetail = ({ isLoggedIn, setIsLoggedIn }) => {
                   <div className="flex items-center justify-between py-2 border-b border-slate-800">
                     <span className="text-slate-400">Price</span>
                     <span className="font-medium text-slate-200">
-                      ₹{product.price}
+                      {(() => {
+                        const mainPrice = product.discountedPrice ?? product.price;
+                        const originalPrice = product.discountedPrice
+                          ? (product.basePrice ?? product.price)
+                          : null;
+                        return (
+                          <div className="text-right">
+                            <div className="font-medium">₹{mainPrice}</div>
+                            {originalPrice && originalPrice > mainPrice && (
+                              <div className="text-sm text-slate-400 line-through">₹{originalPrice}</div>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </span>
                   </div>
-                  {product.totalLength && (
+                  {product.brand && (
                     <div className="flex items-center justify-between py-2 border-b border-slate-800">
-                      <span className="text-slate-400">Total Length</span>
-                      <span className="font-medium text-slate-200">
-                        {product.totalLength} cm
-                      </span>
+                      <span className="text-slate-400">Brand</span>
+                      <span className="font-medium text-slate-200">{product.brand}</span>
                     </div>
                   )}
-                  {product.bladeLength && (
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-slate-400">Blade Length</span>
-                      <span className="font-medium text-slate-200">
-                        {product.bladeLength} cm
-                      </span>
+                  {product.volume && (
+                    <div className="flex items-center justify-between py-2 border-b border-slate-800">
+                      <span className="text-slate-400">Volume</span>
+                      <span className="font-medium text-slate-200">{product.volume} ml</span>
+                    </div>
+                  )}
+                  {product.concentration && (
+                    <div className="flex items-center justify-between py-2 border-b border-slate-800">
+                      <span className="text-slate-400">Concentration</span>
+                      <span className="font-medium text-slate-200">{product.concentration}</span>
+                    </div>
+                  )}
+                  {product.notes && (
+                    <div className="flex items-center justify-between py-2 border-b border-slate-800">
+                      <span className="text-slate-400">Fragrance Notes</span>
+                      <span className="font-medium text-slate-200">{product.notes}</span>
                     </div>
                   )}
                 </div>

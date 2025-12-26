@@ -10,13 +10,13 @@ import {
 const features = [
   {
     icon: FireIcon,
-    title: "Handcrafted Steel",
-    description: "Every blade is individually forged & inspected.",
+    title: "Premium Fragrances",
+    description: "Curated collection of finest perfumes from around the world.",
   },
   {
     icon: GlobeAltIcon,
-    title: "Worldwide Shipping",
-    description: "Tracked delivery to over 80+ countries.",
+    title: "Pan-India Delivery",
+    description: "Fast & reliable delivery across India.",
   },
   {
     icon: CreditCardIcon,
@@ -25,8 +25,8 @@ const features = [
   },
   {
     icon: ShieldCheckIcon,
-    title: "Authentic Designs",
-    description: "Inspired by historical & anime-classic katanas.",
+    title: "Authentic Luxury",
+    description: "100% genuine perfumes with certification.",
   },
 ];
 

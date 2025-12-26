@@ -13,9 +13,9 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
   const socialLinks = [
     {
       name: "Instagram",
-      url: "https://www.instagram.com/swordigo.in?igsh=MXBrdXl4MzkwczV2ag==",
+      url: "https://www.instagram.com/velourfits",
       icon: "📷",
-      description: "Follow us for the latest updates and product showcases",
+      description: "Follow us for the latest launches and olfactory stories",
     },
     {
       name: "WhatsApp",
@@ -40,13 +40,13 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
   const features = [
     {
       icon: FireIcon,
-      title: "Handcrafted Steel",
-      description: "Every blade is individually forged & inspected.",
+      title: "Artisanal Blends",
+      description: "Carefully composed accords for refined presence.",
     },
     {
       icon: GlobeAltIcon,
-      title: "Pan-India Delivery",
-      description: "Reliable delivery across India.",
+      title: "Fast Delivery",
+      description: "Reliable shipping so your scent arrives quickly.",
     },
     {
       icon: CreditCardIcon,
@@ -55,8 +55,8 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
     },
     {
       icon: ShieldCheckIcon,
-      title: "Authentic Designs",
-      description: "Inspired by historical & anime-classic katanas.",
+      title: "Authenticity Guaranteed",
+      description: "Premium ingredients and transparent sourcing.",
     },
   ];
 
@@ -77,13 +77,13 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
             </h1>
             <div className="space-y-6 text-slate-300">
               <p className="text-lg leading-relaxed text-slate-200">
-                <span className="text-sky-400 font-semibold">Blades that tell stories.</span> Crafted for warriors, collectors, and dreamers chasing their next arc.
+                <span className="text-sky-400 font-semibold">Scents that define you.</span> Crafted for those who value refinement and presence.
               </p>
               <p className="leading-relaxed">
-                At Swordigo, we are passionate about bringing you the finest collection of katanas and blades. Each piece in our collection is carefully selected and crafted to meet the highest standards of quality and authenticity. Whether you're a martial arts practitioner, a collector, or someone who appreciates the artistry of traditional Japanese swords, we have something special for you.
+                VelourFits curates premium perfumes created with meticulous attention to composition and longevity. Each fragrance blends high-quality ingredients to deliver a memorable olfactory experience.
               </p>
               <p className="leading-relaxed">
-                Our mission is to provide authentic, high-quality blades that honor the rich tradition of sword-making while meeting the needs of modern enthusiasts. We source our products from skilled craftsmen who understand the importance of both form and function.
+                Our mission is to offer distinctive scents that elevate everyday moments. We collaborate with experienced perfumers and source premium raw materials for consistently exceptional products.
               </p>
             </div>
           </motion.div>
@@ -96,7 +96,7 @@ const ContactUs = ({ isLoggedIn, setIsLoggedIn }) => {
             className="mb-16"
           >
             <h2 className="text-2xl font-semibold text-slate-50 mb-6">
-              Why Choose Swordigo?
+              Why Choose VelourFits?
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {features.map((feature, index) => (

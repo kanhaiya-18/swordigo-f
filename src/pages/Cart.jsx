@@ -178,7 +178,7 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
         key: razorpayOrder.key,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
-        name: "Swordigo",
+        name: "VelourFits",
         description: `Order for ${totalItems} item(s)`,
         order_id: razorpayOrder.id,
         handler: async function (response) {
@@ -189,6 +189,7 @@ const Cart = ({ isLoggedIn, setIsLoggedIn }) => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
+              address: address,
             });
 
             if (verifyRes.data.success) {

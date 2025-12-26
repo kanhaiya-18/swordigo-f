@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import heroImage from "../uploads/heroImage.jpeg";
+import heroImage from "../uploads/veloure.JPG";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -39,19 +39,19 @@ const Hero = () => {
         >
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-slate-300">
             <span className="h-1 w-1 rounded-full bg-fuchsia-400 shadow-[0_0_10px_rgba(244,63,94,0.8)]"></span>
-            Premium Katana Store
+            VelourFits Premium Perfumes
           </p>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
-            Unleash the{" "}
+            Indulge in timeless scent —
             <span className="bg-gradient-to-r from-fuchsia-400 via-rose-400 to-sky-400 bg-clip-text text-transparent">
-              Blade Within
+              Velvet Elegance
             </span>
           </h1>
 
           <p className="mt-5 text-sm sm:text-base text-slate-300/90 max-w-xl">
-            Premium handcrafted katanas for collectors, cosplayers, and warriors
-            at heart. Forged with precision. Designed to strike.
+            Discover signature fragrances crafted for modern aesthetics. Luxurious
+            accords, enduring sillage — scents that elevate presence and mood.
           </p>
 
           {/* Buttons */}

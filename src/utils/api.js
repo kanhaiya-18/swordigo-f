@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Use environment variable for API URL or fallback to Railway production URL
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://swordigo-back-production.up.railway.app";
-
+// const API_BASE_URL = "http://10.80.198.8:5000";
 // Create axios instance with default config
 const api = axios.create({
   baseURL: API_BASE_URL,

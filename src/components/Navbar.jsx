@@ -80,7 +80,7 @@ const Navbar = ({isLoggedIn, setIsLoggedIn}) => {
               <span className="h-7 w-0.5 rotate-[-30deg] bg-gradient-to-b from-fuchsia-400 via-rose-400 to-sky-400 shadow-[0_0_10px_rgba(244,63,94,0.8)]"></span>
             </div>
             <span className="font-semibold tracking-[0.25em] text-xs sm:text-sm uppercase text-slate-50">
-              Swordigo
+              VelourFits
             </span>
           </Link>
 
@@ -118,9 +118,7 @@ const Navbar = ({isLoggedIn, setIsLoggedIn}) => {
                   key={link.href}
                   onClick={() => setActive(link.href)}
                   className={`group relative cursor-pointer border-b border-transparent pb-1 text-[11px] sm:text-xs uppercase tracking-[0.18em] transition-colors duration-200 ${
-                    isActive
-                      ? "text-white"
-                      : "text-slate-300 hover:text-white"
+                    isActive ? "text-white" : "text-slate-300 hover:text-white"
                   }`}
                 >
                   <a href={link.href}>{link.label}</a>

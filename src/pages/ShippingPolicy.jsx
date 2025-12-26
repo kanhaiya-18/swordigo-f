@@ -133,7 +133,7 @@ const ShippingPolicy = ({ isLoggedIn, setIsLoggedIn }) => {
                 9. Risk of Loss
               </h2>
               <p className="leading-relaxed">
-                The risk of loss and title for products purchased from Swordigo
+                The risk of loss and title for products purchased from VelourFits
                 pass to you upon delivery to the carrier.
               </p>
             </section>

@@ -12,15 +12,15 @@ const Footer = () => {
         <div className="grid gap-8 md:grid-cols-3">
           {/* Left */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
               <div className="h-6 w-0.5 rotate-[-30deg] bg-sky-500/80" />
               <span className="text-xs font-semibold tracking-[0.3em] uppercase text-slate-100">
-                Swordigo
+                VelourFits
               </span>
             </div>
             <p className="text-xs text-slate-400/90 max-w-xs">
-              Blades that tell stories. Crafted for warriors, collectors, and
-              dreamers chasing their next arc.
+              Premium perfumes inspired by aesthetics and sophisticated design.
+              Curated scents for presence and poise.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ const Footer = () => {
               <motion.a
                 whileHover={{ y: -2 }}
                 className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-[11px] text-slate-200 hover:border-sky-500 hover:text-sky-200 transition-all duration-300"
-                href="https://www.instagram.com/swordigo.in?igsh=MXBrdXl4MzkwczV2ag=="
+                href="https://www.instagram.com/velourfits"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -93,11 +93,11 @@ const Footer = () => {
               </Link>
             </div>
             <p className="text-[10px] text-slate-500">
-              © Swordigo 2025. All rights reserved.
+              © VelourFits 2025. All rights reserved.
             </p>
           </div>
           <p className="mt-2 text-[10px] text-slate-500 text-center sm:text-left">
-            Forged in the shadows. Wielded in the light.
+            Crafted for elegance. Worn for moments.
           </p>
         </div>
       </div>

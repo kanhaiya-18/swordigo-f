@@ -17,14 +17,14 @@ const TermsOfService = ({ isLoggedIn, setIsLoggedIn }) => {
             <section>
               <h2 className="text-xl font-semibold text-slate-50 mb-3">1. Acceptance of Terms</h2>
               <p className="leading-relaxed">
-                By accessing and using Swordigo, you accept and agree to be bound by the terms and provision of this agreement.
+                By accessing and using VelourFits, you accept and agree to be bound by the terms and provision of this agreement.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-slate-50 mb-3">2. Use License</h2>
               <p className="leading-relaxed">
-                Permission is granted to temporarily access the materials on Swordigo's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
+                Permission is granted to temporarily access the materials on VelourFits' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
               </p>
             </section>
 
@@ -59,7 +59,7 @@ const TermsOfService = ({ isLoggedIn, setIsLoggedIn }) => {
             <section>
               <h2 className="text-xl font-semibold text-slate-50 mb-3">7. Limitation of Liability</h2>
               <p className="leading-relaxed">
-                Swordigo shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.
+                VelourFits shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.
               </p>
             </section>
 

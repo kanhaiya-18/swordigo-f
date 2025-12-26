@@ -45,8 +45,7 @@ const Shop = ({ isLoggedIn, setIsLoggedIn }) => {
               </span>
             </h1>
             <p className="mt-2 text-sm text-slate-400 max-w-xl">
-              Browse all katanas available in stock, powered by live data from
-              the backend.
+              Explore a curated collection of perfumes crafted for elegance, lasting power, and refined presence.
             </p>
           </header>
 
@@ -191,9 +190,23 @@ const Shop = ({ isLoggedIn, setIsLoggedIn }) => {
                           </p>
                         )}
                       </div>
-                      <span className="text-sm font-semibold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-                        ₹{product.price}
-                      </span>
+                      {/* Price display: show discounted price prominently with original/base price struck-through when applicable */}
+                      <div className="text-sm text-right">
+                        {(() => {
+                          const mainPrice = product.discountedPrice ?? product.price;
+                          const originalPrice = product.discountedPrice
+                            ? (product.basePrice ?? product.price)
+                            : null;
+                          return (
+                            <div>
+                              <div className="font-semibold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">₹{mainPrice}</div>
+                              {originalPrice && originalPrice > mainPrice && (
+                                <div className="text-xs text-slate-400 line-through mt-0.5">₹{originalPrice}</div>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between text-[11px] text-slate-400">
